@@ -11,15 +11,13 @@ func First(g grammar, symbol string) sets.String {
 	if g.T.Has(symbol) {
 		firstSet.Insert(symbol)
 	}
-
-	if symbol == "" {
+	if symbol == "ε" {
 		firstSet.Insert(symbol)
 	}
-
 	if g.N.Has(symbol) {
 		// Iterate over productions of X
 		for _, production := range g.P[symbol] {
-			if production == "" {
+			if production == "ε" {
 				firstSet.Insert(production)
 				continue
 			}
@@ -34,47 +32,60 @@ func First(g grammar, symbol string) sets.String {
 					char := string(value)
 					if g.N.Has(char) && addEmpty {
 						firstNonT := First(g, char)
-						if firstNonT.Has("") {
-							firstSet = firstSet.Union(firstNonT.Delete(""))
+						if firstNonT.Has("ε") {
+							firstSet = firstSet.Union(firstNonT.Delete("ε"))
 						} else {
 							firstSet = firstSet.Union(firstNonT)
 							addEmpty = false
 						}
 					} else if g.N.Has(char) && !addEmpty {
 						break
-					} else if g.T.Has(char) && addEmpty{
+					} else if g.T.Has(char) && addEmpty {
 						firstSet.Insert(char)
 						addEmpty = false
 					}
 				}
-				if addEmpty { firstSet.Insert("") }
+				if addEmpty {
+					firstSet.Insert("ε")
+				}
 			}
 		}
 	}
 	return firstSet
 }
 
-func FirstSeveral(g grammar, str string) sets.String {
+func FirstString(g grammar, str string) sets.String {
 	firstSet := sets.NewString()
 	addEmpty := true
+	if str == "ε" {
+		firstSet.Insert("ε")
+	}
 	for i, runeChar := range str {
 		char := string(runeChar)
 		firstChar := First(g, char)
-		if !firstChar.Has("") {
-			firstSet = firstSet.Union(firstChar.Delete(""))
+		if !firstChar.Has("ε") {
+			firstSet = firstSet.Union(firstChar.Delete("ε"))
 			addEmpty = false
 			break
 		}
-		firstSet = firstSet.Union(firstChar.Delete(""))
+		firstSet = firstSet.Union(firstChar.Delete("ε"))
 		if i == len(str)-1 && addEmpty {
-			firstSet.Insert("")
+			firstSet.Insert("ε")
 		}
 	}
 	return firstSet
 }
 
-func FirstGrammar(g grammar) {
-	for _, value := range(g.N.List()) {
-		fmt.Println(value, " -> ",First(g, value).List())
+func FirstGrammar(g grammar) map[string]sets.String {
+	firsts := make(map[string]sets.String)
+	for _, value := range g.N.List() {
+		firsts[value] = First(g, value)
+	}
+	return firsts
+}
+
+func PrintFirstGrammar(fG map[string]sets.String) {
+	for symbol, first := range fG {
+		fmt.Println(symbol, "->", first.List())
 	}
 }

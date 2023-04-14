@@ -14,14 +14,14 @@ func main() {
 	p := map[string][]string{
 		"S": { "aBDh" },
 		"B": { "cC" },
-		"C": { "bc", "" },
+		"C": { "bc", "ε" },
 		"D": { "EF" },
-		"E": { "g", "" },
-		"F": { "f", "" },
+		"E": { "g", "ε" },
+		"F": { "f", "ε" },
 	}
 
 	grammar := src.NewGrammar(n, t, p, "S")
-	src.FirstGrammar(grammar)
+	src.PrintFirstGrammar(src.FirstGrammar(grammar))
 	fmt.Println(" ")
 
 	n = sets.NewString("S", "A", "D", "B", "C")
@@ -31,13 +31,13 @@ func main() {
 	p = map[string][]string{
 		"S": { "A" },
 		"A": { "aBD" },
-		"D": { "dD", "" },
+		"D": { "dD", "ε" },
 		"B": { "b" },
 		"C": { "g" },
 	}
 	
 	grammar = src.NewGrammar(n, t, p, "S")
-	src.FirstGrammar(grammar)
+	src.PrintFirstGrammar(src.FirstGrammar(grammar))
 	
 	fmt.Println(" ")
 
@@ -47,14 +47,18 @@ func main() {
 
 	p = map[string][]string{
 		"E": { "TG" },
-		"G": { "+TG", "" },
+		"G": { "+TG", "ε" },
 		"T": { "FU" },
-		"U": { "*FU", "" },
+		"U": { "*FU", "ε" },
 		"F": { "(E)", "i" },
 	}
 	
 	grammar = src.NewGrammar(n, t, p, "E")
-	src.FirstGrammar(grammar)
+	src.PrintFirstGrammar(src.FirstGrammar(grammar))
+	fmt.Println("Follows my friend")
+	src.PrintFollowGrammar(src.FollowGrammar(grammar))
+	fmt.Println(src.Follow(grammar, "E").List())
+	fmt.Println(src.FirstString(grammar, "ε").List())	
 
 	fmt.Println(" ")
 
@@ -64,13 +68,10 @@ func main() {
 
 	p = map[string][]string{
 		"A": { "BC" },
-		"B": { "ba", "" },
-		"C": { "a", "" },
+		"B": { "ba", "ε" },
+		"C": { "a", "ε" },
 	}
 	
 	grammar = src.NewGrammar(n, t, p, "A")
-	src.FirstGrammar(grammar)
-	fmt.Println(src.FirstSeveral(grammar, "B"))	
-
-
+	src.PrintFirstGrammar(src.FirstGrammar(grammar))
 }
