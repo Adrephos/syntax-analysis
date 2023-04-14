@@ -1,6 +1,10 @@
 package src
 
-import "k8s.io/apimachinery/pkg/util/sets"
+import (
+	"fmt"
+
+	"k8s.io/apimachinery/pkg/util/sets"
+)
 
 type grammar struct {
 	N sets.String
@@ -16,4 +20,15 @@ func NewGrammar( N sets.String, T sets.String, P map[string][]string, S string) 
 		P: P,
 		S: S,
 	}
+}
+
+func (g grammar) Print() {
+	fmt.Println("Simbolo inicial: ",g.S)
+	fmt.Println("Terminales: ",g.T.List())
+	fmt.Println("No terminales: ",g.N.List())
+	fmt.Println("Prducciones: ")
+	for key, value := range g.P {
+		fmt.Println(" ", key, "->", value)
+	}
+	
 }
