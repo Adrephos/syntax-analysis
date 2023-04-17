@@ -34,7 +34,7 @@ func Follow(g grammar, symbol string) sets.String {
 	return followSet.Delete("ε")
 }
 
-func FollowGrammar(g grammar) map[string]sets.String {
+func (g grammar) FollowGrammar() map[string]sets.String {
 	follows := make(map[string]sets.String)
 	for _, n_terminal := range g.N.List() {
 		follows[n_terminal] = Follow(g, n_terminal)

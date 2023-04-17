@@ -76,9 +76,12 @@ func FirstString(g grammar, str string) sets.String {
 	return firstSet
 }
 
-func FirstGrammar(g grammar) map[string]sets.String {
+func (g grammar) FirstGrammar() map[string]sets.String {
 	firsts := make(map[string]sets.String)
 	for _, value := range g.N.List() {
+		firsts[value] = First(g, value)
+	}
+	for _, value := range g.T.List() {
 		firsts[value] = First(g, value)
 	}
 	return firsts
