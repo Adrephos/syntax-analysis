@@ -7,9 +7,12 @@ import (
 
 func main() {
 	grammar := src.GrammarInput()
+	grammar.Print()
 	fmt.Println(grammar.HasLeftRecursion())
-	//fmt.Println("Firsts:")
-	//src.PrintFirstGrammar(src.FirstGrammar(grammar))
-	//fmt.Println("Follows:")
-	//src.PrintFollowGrammar(src.FollowGrammar(grammar))
+	fmt.Printf("\nFirsts:\n")
+	src.PrintFirstGrammar(grammar.FirstGrammar())
+	/*
+	fmt.Printf("\nFollows:\n")
+	src.PrintFollowGrammar(grammar.FollowGrammar())
+	*/
 }
