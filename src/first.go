@@ -59,8 +59,26 @@ func First(g grammar, s string) sets.String {
 	}
 }
 
-func FirstString(g grammar, s string) sets.String {
-	return sets.NewString()
+func FirstString(g grammar, str string) sets.String {
+	firstSet := sets.NewString()
+	addEmpty := true
+	if str == "ε" {
+		firstSet.Insert("ε")
+	}
+	for i, runeChar := range str {
+		char := string(runeChar)
+		firstChar := First(g, char)
+		if !firstChar.Has("ε") {
+			firstSet = firstSet.Union(firstChar.Delete("ε"))
+			addEmpty = false
+			break
+		}
+		firstSet = firstSet.Union(firstChar.Delete("ε"))
+		if i == len(str)-1 && addEmpty {
+			firstSet.Insert("ε")
+		}
+	}
+	return firstSet
 }
 
 func (g grammar) FirstGrammar() map[string]sets.String {
