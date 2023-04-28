@@ -29,6 +29,7 @@ func (g grammar) Print() {
 	for key, value := range g.P {
 		fmt.Println(" ", key, "->", value)
 	}
+	fmt.Println()
 
 }
 
