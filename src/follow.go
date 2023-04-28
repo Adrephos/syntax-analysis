@@ -6,7 +6,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
-func Follow(g grammar, symbol string) sets.String {
+func FollowCalc(g grammar, symbol string, r string) sets.String {
 	if !g.N.Has(symbol) {
 		log.Fatal(symbol, "is not a non-terminal symbol of this grammar")
 	}
@@ -23,8 +23,8 @@ func Follow(g grammar, symbol string) sets.String {
 						beta = production[i+1:]
 					}
 					firstBeta := FirstString(g, beta)
-					if firstBeta.Has("ε") && n_terminal != symbol {
-						followSet = followSet.Union(Follow(g, n_terminal))
+					if firstBeta.Has("ε") && n_terminal != symbol && n_terminal != r {
+						followSet = followSet.Union(FollowCalc(g, n_terminal, r))
 					}
 					followSet = followSet.Union(firstBeta)
 				}
@@ -32,6 +32,10 @@ func Follow(g grammar, symbol string) sets.String {
 		}
 	}
 	return followSet.Delete("ε")
+}
+
+func Follow(g grammar, s string) sets.String {
+	return FollowCalc(g, s, s)
 }
 
 func (g grammar) FollowGrammar() map[string]sets.String {
