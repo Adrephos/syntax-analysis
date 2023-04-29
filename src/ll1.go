@@ -24,9 +24,6 @@ func checkNonTerminal(g grammar, s string) bool {
 		for production_b, first_b := range firstSet {
 			if production_a != production_b {
 				// At most one of cu and ,D can derive the empty string.
-				if first_a.Has("ε") && first_b.Has("ε") {
-					return false
-				}
 				if first_b.Has("ε") {
 					intersection := first_a.Intersection(Follow(g, s)).Len()
 					if intersection > 0 { return false }
