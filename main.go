@@ -7,11 +7,19 @@ import (
 
 func main() {
 	grammar := src.GrammarInput()
-	grammar.Print()
-	fmt.Println("Recursividad por la izquierda: ", grammar.HasLeftRecursion())
-	fmt.Printf("\nFirsts:\n")
-	src.PrintFirstGrammar(grammar.FirstGrammar())
-	fmt.Printf("\nFollows:\n")
-	src.PrintFollowGrammar(grammar.FollowGrammar())
-	fmt.Printf("\nEs LL(1): %v\n", grammar.IsLL1())
+	stringArr := src.StringsInput()
+
+	if grammar.IsLL1() {
+		for _, value := range stringArr {
+			isPartOfGrammar, err := src.PredictiveParsing(grammar, value)
+			if isPartOfGrammar {
+				fmt.Printf("La cadena %s SI hace parte de la gramática\n", value)
+			} else {
+				fmt.Printf("La cadena %s NO hace parte de la gramática\n", value)
+				fmt.Printf(err.Error())
+			}
+		}
+	} else {
+		fmt.Println("Esta gramática no es LL(1)")
+	}
 }
