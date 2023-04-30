@@ -11,7 +11,7 @@ import (
 func GrammarInput() grammar {
 	productions := make(map[string][]string)
 	var line, initial string
-	fmt.Println("Formato: <no-terminal> -> <production> | <production> .....")
+	fmt.Println("Formato: <no-terminal> -> <producción> | <producción> .....")
 	fmt.Println("Escribe $ para finalizar")
 	count := 0
 	for {
@@ -32,6 +32,24 @@ func GrammarInput() grammar {
 	}
 
 	return mapToGrammar(productions, initial)
+}
+
+func StringsInput() []string {
+	var stringArr []string
+	var line string
+	fmt.Println("Ingrese las cadenas a analizar")
+	fmt.Println("Escribe $ para finalizar")
+	for {
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		line = scanner.Text()
+		if line == "$" {
+			break
+		}
+		line = strings.Trim(line, "\n")
+		stringArr = append(stringArr, line)
+	}
+	return stringArr
 }
 
 func mapToGrammar( m map[string][]string, initial string) grammar {
