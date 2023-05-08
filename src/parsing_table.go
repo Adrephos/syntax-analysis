@@ -28,7 +28,7 @@ func (g grammar) CreateTable() map[string]map[string]string {
 					if g.T.Has(b) || b == "$" {
 						prod := fmt.Sprintf("%s->%s", symbol, production)
 						if getValue(table, symbol, b) != "" {
-							log.Fatal("Gramatica ambigua, fallo al crear la tabla")
+							log.Fatal("Error: Gramatica ambigua, fallo al crear la tabla")
 						}
 						addCell(table, symbol, b, prod)
 					}
