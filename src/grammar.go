@@ -3,10 +3,10 @@ package src
 import (
 	"fmt"
 
-	"golang.org/x/mobile/app"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
+// Stores a grammar with all its components
 type grammar struct {
 	N sets.String
 	T sets.String
@@ -14,6 +14,7 @@ type grammar struct {
 	S string
 }
 
+// Returns a new grammar struct
 func NewGrammar(N sets.String, T sets.String, P map[string][]string, S string) grammar {
 	return grammar{
 		N: N,
@@ -23,6 +24,7 @@ func NewGrammar(N sets.String, T sets.String, P map[string][]string, S string) g
 	}
 }
 
+// Prints a grammar with all its components
 func (g grammar) Print() {
 	fmt.Println("Simbolo inicial: ", g.S)
 	fmt.Println("Terminales: ", g.T.List())
@@ -35,6 +37,7 @@ func (g grammar) Print() {
 
 }
 
+// 
 func derivationSet(g grammar) map[string]sets.String {
 	symbolMap := make(map[string]sets.String)
 	for symbol := range g.P {
@@ -50,6 +53,7 @@ func derivationSet(g grammar) map[string]sets.String {
 	return symbolMap
 }
 
+// Function to know if a set has left recursion
 func (g grammar) HasLeftRecursion() bool {
 	for A := range g.N {
 		visited := []string{A}
@@ -76,17 +80,4 @@ func (g grammar) HasLeftRecursion() bool {
 		}
 	}
 	return false
-}
-
-func (g grammar) Argumented() map[string]int {
-	var arguments map[string]int
-	index := 1
-	for symbol, productions := range g.P {
-		for _,  production := range productions {
-			argument := fmt.Sprintf("%s->.%s", symbol, production)
-			arguments[argument] = index
-			index++
-		}
-	}
-	return arguments
 }
