@@ -2,6 +2,8 @@ package src
 
 import (
 	"fmt"
+
+	"golang.org/x/mobile/app"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
@@ -74,4 +76,17 @@ func (g grammar) HasLeftRecursion() bool {
 		}
 	}
 	return false
+}
+
+func (g grammar) Argumented() map[string]int {
+	var arguments map[string]int
+	index := 1
+	for symbol, productions := range g.P {
+		for _,  production := range productions {
+			argument := fmt.Sprintf("%s->.%s", symbol, production)
+			arguments[argument] = index
+			index++
+		}
+	}
+	return arguments
 }
