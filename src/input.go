@@ -52,6 +52,7 @@ func StringsInput() []string {
 	return stringArr
 }
 
+// From a map of productions creates a grammar type
 func mapToGrammar( m map[string][]string, initial string) grammar {
 	var g grammar
 	g.P = m
