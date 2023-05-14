@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Predictive top-down algorithm for LL1 gramamr
 func PredictiveParsing(g grammar, s string) (bool, error) {
 	// Parsing table M of G
 	table := g.CreateTable()
