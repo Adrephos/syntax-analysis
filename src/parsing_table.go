@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// Creates a parsing table for a LL1 grammar
 func (g grammar) CreateTable() map[string]map[string]string {
 	table := make(map[string]map[string]string)
 	followGrammar := g.FollowGrammar()
