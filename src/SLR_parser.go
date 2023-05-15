@@ -1,6 +1,7 @@
 package src
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -48,7 +49,8 @@ func LRParsing(g grammar, s string, action table, arguments map[argument]int, er
 		} else if actionValue.function == "a" {
 			break
 		} else {
-			return false, nil
+			errP := fmt.Sprintf("Error: No hay valor para la celda (%v, %v)\n", top, a)
+			return false, errors.New(errP)
 		}
 	}
 	return true, nil
