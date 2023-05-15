@@ -37,7 +37,11 @@ func main() {
 	fmt.Printf("\n\nBottom up parser\n\n")
 	// LR parse routine
 	action, arguments, err := grammar.CreateSLRTable()
-	for _, value := range stringArr {
+	if err != nil {
+		fmt.Printf("Error: La gramática no es LR(0)\n")
+		fmt.Printf(err.Error())
+	} else {
+		for _, value := range stringArr {
 			isPartOfGrammar, err := src.LRParsing(grammar, value, action, arguments, err)
 			if isPartOfGrammar {
 				fmt.Printf("La cadena %s SI hace parte de la gramática\n", value)
@@ -48,4 +52,5 @@ func main() {
 				}
 			}
 		}
+	}
 }

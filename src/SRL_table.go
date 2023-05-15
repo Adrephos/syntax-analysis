@@ -19,7 +19,7 @@ type fn struct {
 // add a new value at table[row][column]
 func ( t table) addCell(row int, column string, value fn) error {
 	if t.getValue(row, column) != (fn{}) {
-		errorMsg := fmt.Sprintf("Error: Conflicto en la celda (%v, %v) ya existe un valor", row, column)
+		errorMsg := fmt.Sprintf("Error: Conflicto en la celda (%v, %v) ya existe un valor\n", row, column)
 		return errors.New(errorMsg)
 	}
 	if t[row] == nil {
