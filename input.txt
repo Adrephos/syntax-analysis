@@ -1,0 +1,195 @@
+S -> VT
+T -> bST | ε
+V -> cV | c
+
+cccccbvvvvbvvvbvvvbvv
+ccbvbvvbbvv
+ccccc
+bbbb
+---
+S -> aAa
+A -> aa | ε
+
+aaaa
+aa
+aaa
+a
+---
+S -> aSb | cSa | ε
+
+acacabab
+ab
+abca
+abc
+---
+E -> E+T | T
+T -> TxF | F
+F -> (E) | i
+
+(i+i)xi
+((i+i)xi)+i
+()()
+i+
+---
+S -> A | a
+A -> a
+
+a
+aaa
+aaaa
+---
+S -> Ab | a
+A -> S | ε
+
+abb
+ab
+ababa
+ababbb
+---
+S -> iEtSF | a
+F -> eS | ε
+E -> b
+
+ibtibtaeaEa
+---
+S -> Aa | b
+A -> Bd | ε
+B -> Sc
+
+bcda
+b
+da
+asas
+---
+S -> Aa | b
+A -> Sd | ε
+
+ba
+ada
+abasbabs
+sasda
+---
+S -> Aa | b
+A -> Ac | Sd | ε
+
+ba
+dca
+asas
+lasdk
+---
+S -> ACB | CbB | Ba
+A -> da | BC
+B -> g | ε
+C -> h | ε
+
+dahg
+da
+hbg
+ghac
+gha
+---
+S -> AaAb | BbBa
+A -> ε
+B -> ε
+
+ab
+ba
+bababa
+abababa
+---
+S -> (L) | a
+L -> SM
+M -> ,SM | ε
+
+(a,a,a,a,a,a,a,a)
+(a,a)
+a
+()
+(()
+---
+S -> A
+A -> aBD
+D -> dD | ε
+B -> b
+C -> g
+
+abd
+abdd
+abg
+ag
+---
+S -> A
+A -> aB | Ad
+B -> b
+C -> g
+
+ab
+abddddd
+abg
+adbg
+---
+S -> aBDh
+B -> cC
+C -> bC | ε
+D -> EF
+E -> g | ε
+F -> f | ε
+
+acbbgh
+acbbgfh
+bgfh
+agh
+---
+E -> TG
+G -> +TG | ε
+T -> FU
+U -> *FU | ε
+F -> (E) | i
+
+(i+i)*i
+((i+i)*i)+i
+()()
+i+
+---
+S -> ABCDE
+A -> a | ε
+B -> b | ε
+C -> c | ε
+D -> d | ε
+E -> e | ε
+
+abcde
+ace
+aaceaceacece
+abcddca
+---
+S -> (S)A | ()A
+A -> SA | ε
+
+(())
+(())()
+))(
+)))
+---
+S -> (S) | SS | ε
+
+(())
+(())()
+))(
+)))
+---
+S -> (S)A | ()A
+A -> (S)AA | ()AA | ε
+
+(())
+(())()
+))(
+)))
+---
+S -> (S)A | A
+A -> SA | ε
+
+(())
+(())()
+))(
+)))
