@@ -8,7 +8,7 @@ import (
 )
 
 // Returns the first set for a Non terminal of a given grammar
-func FirstNonTerminal(g grammar, s string, r string) sets.String {
+func FirstNonTerminal(g grammar, s string, r sets.String) sets.String {
 	first := sets.NewString()
 	if g.T.Has(s) || s == "ε" {
 		first.Insert(s)
@@ -27,9 +27,9 @@ func FirstNonTerminal(g grammar, s string, r string) sets.String {
 			for _, symbol := range production {
 				symbolStr := string(symbol)
 
-				if symbolStr == r { continue }
+				if r.Has(symbolStr) { continue }
 
-				symbolStrFirst := FirstNonTerminal(g, symbolStr, r)
+				symbolStrFirst := FirstNonTerminal(g, symbolStr, r.Insert(symbolStr))
 
 				if !epsilon { break }
 
@@ -54,7 +54,7 @@ func First(g grammar, s string) sets.String {
 		return first
 	}
 	if g.N.Has(s) {
-		return FirstNonTerminal(g, s, s)
+		return FirstNonTerminal(g, s, sets.NewString(s))
 	} else {
 		log.Fatalf("Symbol '%v' is not part of this grammar.", s)
 		return sets.NewString()
