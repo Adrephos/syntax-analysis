@@ -1,4 +1,4 @@
-module github.com/Adrephos/top-down
+module github.com/Adrephos/syntax-analysis
 
 go 1.20
 
