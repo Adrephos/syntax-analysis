@@ -29,13 +29,22 @@ func NewState(g grammar, k sets.Set[argument]) state {
 	for finishFlag {
 		current := nTerminal[index]
 		if alreadyVisited.Has(current) {
+			if index == len(nTerminal) - 1 {
+				finishFlag = false
+			} else {
+				index++
+			}
 			continue
 		} else {
 			alreadyVisited.Insert(current)
 		}
 
 		for _, production := range g.P[current] {
-			arg := newArg(current, production, 0)
+			num := 0
+			if production == "ε" {
+				num = -1
+			}
+			arg := newArg(current, production, num)
 			transition := arg.GetTransition()
 			clossure.Insert(arg)
 

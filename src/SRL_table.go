@@ -131,7 +131,8 @@ func (g grammar ) CreateSLRTable() (table, map[argument]int, error) {
 				continue
 			}
 			counter = 0
-			err := makeTansitions(&table, NewState(g, state), &statesMap, &stateNumber, g, arguments, followSets)
+			thisState := NewState(g, state)
+			err := makeTansitions(&table, thisState, &statesMap, &stateNumber, g, arguments, followSets)
 			if err != nil {
 				return nil, nil, err
 			}
