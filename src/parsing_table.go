@@ -1,11 +1,13 @@
 package src
 
 import (
+	"errors"
 	"fmt"
 	"log"
 )
 
-func (g grammar) CreateTable() map[string]map[string]string {
+// Creates a parsing table for a LL1 grammar
+func (g grammar) CreateTable() (map[string]map[string]string, error){
 	table := make(map[string]map[string]string)
 	followGrammar := g.FollowGrammar()
 	for symbol, productions := range g.P {
@@ -28,7 +30,8 @@ func (g grammar) CreateTable() map[string]map[string]string {
 					if g.T.Has(b) || b == "$" {
 						prod := fmt.Sprintf("%s->%s", symbol, production)
 						if getValue(table, symbol, b) != "" {
-							log.Fatal("Gramatica ambigua, fallo al crear la tabla")
+							err := errors.New("Error: Gramatica ambigua, fallo al crear la tabla")
+							return table, err
 						}
 						addCell(table, symbol, b, prod)
 					}
@@ -36,7 +39,7 @@ func (g grammar) CreateTable() map[string]map[string]string {
 			}
 		}
 	}
-	return table
+	return table, nil
 }
 
 func addCell(table map[string]map[string]string, row, column, value string) {

@@ -7,7 +7,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
-func FirstNonTerminal(g grammar, s string, r string) sets.String {
+// Returns the first set for a Non terminal of a given grammar
+func FirstNonTerminal(g grammar, s string, r sets.String) sets.String {
 	first := sets.NewString()
 	if g.T.Has(s) || s == "ε" {
 		first.Insert(s)
@@ -26,9 +27,9 @@ func FirstNonTerminal(g grammar, s string, r string) sets.String {
 			for _, symbol := range production {
 				symbolStr := string(symbol)
 
-				if symbolStr == r { continue }
+				if r.Has(symbolStr) { continue }
 
-				symbolStrFirst := FirstNonTerminal(g, symbolStr, r)
+				symbolStrFirst := FirstNonTerminal(g, symbolStr, r.Insert(symbolStr))
 
 				if !epsilon { break }
 
@@ -44,6 +45,7 @@ func FirstNonTerminal(g grammar, s string, r string) sets.String {
 	return first
 }
 
+// The first set of a grammar symbol
 func First(g grammar, s string) sets.String {
 	first := sets.NewString()
 	//If s is terminal or ε First(s) = {s}
@@ -52,13 +54,14 @@ func First(g grammar, s string) sets.String {
 		return first
 	}
 	if g.N.Has(s) {
-		return FirstNonTerminal(g, s, s)
+		return FirstNonTerminal(g, s, sets.NewString(s))
 	} else {
 		log.Fatalf("Symbol '%v' is not part of this grammar.", s)
 		return sets.NewString()
 	}
 }
 
+// The first set of a given string
 func FirstString(g grammar, str string) sets.String {
 	firstSet := sets.NewString()
 	addEmpty := true
@@ -81,6 +84,7 @@ func FirstString(g grammar, str string) sets.String {
 	return firstSet
 }
 
+// Returns the first sets for each terminal and non terminal of a grammar
 func (g grammar) FirstGrammar() map[string]sets.String {
 	firsts := make(map[string]sets.String)
 	for _, value := range g.N.List() {
@@ -92,6 +96,7 @@ func (g grammar) FirstGrammar() map[string]sets.String {
 	return firsts
 }
 
+// Prints the first sets of a gramar for each symbol
 func PrintFirstGrammar(fG map[string]sets.String) {
 	for symbol, first := range fG {
 		fmt.Println(symbol, "->", first.List())

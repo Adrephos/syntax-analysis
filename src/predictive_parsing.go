@@ -6,9 +6,15 @@ import (
 	"strings"
 )
 
+// Predictive top-down algorithm for LL1 gramamr
 func PredictiveParsing(g grammar, s string) (bool, error) {
 	// Parsing table M of G
-	table := g.CreateTable()
+	table, err := g.CreateTable()
+
+	if err != nil {
+		return false, err
+	}
+
 	var stack Stack
 	// Conigure input as w$ where w is the string
 	s = fmt.Sprintf("%s$", s)
@@ -20,6 +26,7 @@ func PredictiveParsing(g grammar, s string) (bool, error) {
 	index := 0
 	for top != "$" {
 		a := string(s[index])
+		top = stack[len(stack)-1]
 
 		if top == a {
 			stack.Pop()
@@ -39,7 +46,6 @@ func PredictiveParsing(g grammar, s string) (bool, error) {
 				}
 			}
 		}
-		top = stack[len(stack)-1]
 	}
 	return true, nil
 }

@@ -24,7 +24,7 @@ func GrammarInput() grammar {
 		}
 		sy_prod := strings.Split(line, "->")
 		production := strings.Split(sy_prod[1], "|")
-		productions[sy_prod[0]] = production
+		productions[sy_prod[0]] = append(productions[sy_prod[0]], production...)
 		if count == 0 {
 			initial = sy_prod[0]
 		}
@@ -52,6 +52,7 @@ func StringsInput() []string {
 	return stringArr
 }
 
+// From a map of productions creates a grammar type
 func mapToGrammar( m map[string][]string, initial string) grammar {
 	var g grammar
 	g.P = m

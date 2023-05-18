@@ -6,7 +6,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
-func FollowCalc(g grammar, symbol string, r string) sets.String {
+// Returns the follow set for a given non terminal
+func FollowCalc(g grammar, symbol string, r sets.String) sets.String {
 	if !g.N.Has(symbol) {
 		log.Fatal(symbol, "is not a non-terminal symbol of this grammar")
 	}
@@ -23,8 +24,8 @@ func FollowCalc(g grammar, symbol string, r string) sets.String {
 						beta = production[i+1:]
 					}
 					firstBeta := FirstString(g, beta)
-					if firstBeta.Has("ε") && n_terminal != symbol && n_terminal != r {
-						followSet = followSet.Union(FollowCalc(g, n_terminal, r))
+					if firstBeta.Has("ε") && n_terminal != symbol && !r.Has(n_terminal) {
+						followSet = followSet.Union(FollowCalc(g, n_terminal, r.Insert(symbol)))
 					}
 					followSet = followSet.Union(firstBeta)
 				}
@@ -34,10 +35,12 @@ func FollowCalc(g grammar, symbol string, r string) sets.String {
 	return followSet.Delete("ε")
 }
 
+// Returns the follow set for a given non terminal
 func Follow(g grammar, s string) sets.String {
-	return FollowCalc(g, s, s)
+	return FollowCalc(g, s, sets.NewString(s))
 }
 
+// Returns the follow set for al nono terminals of a grammar
 func (g grammar) FollowGrammar() map[string]sets.String {
 	follows := make(map[string]sets.String)
 	for _, n_terminal := range g.N.List() {
@@ -47,6 +50,7 @@ func (g grammar) FollowGrammar() map[string]sets.String {
 	return follows
 }
 
+// Prints the follow sets for al non terminals of a grammar
 func PrintFollowGrammar(fG map[string]sets.String) {
 	for symbol, follow := range fG {
 		fmt.Println(symbol, "->", follow.List())
