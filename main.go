@@ -16,6 +16,8 @@ func main() {
 		grammar := src.GrammarInput()
 		strings := src.StringsInput()
 
+		grammar.Print()
+
 		src.Ll1Routine(grammar, strings)
 		src.Lr0Routine(grammar, strings)
 

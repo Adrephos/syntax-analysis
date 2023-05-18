@@ -18,7 +18,7 @@ func stringToGrammar(s string) grammar {
 		sy_prod := strings.Split(line, "->")
 		if index == 0 { initial = sy_prod[0] }
 		production := strings.Split(sy_prod[1], "|")
-		productions[sy_prod[0]] = production
+		productions[sy_prod[0]] = append(productions[sy_prod[0]], production...)
 
 	}
 	return mapToGrammar(productions, initial)
