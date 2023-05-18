@@ -193,3 +193,140 @@ A -> SA | ε
 (())()
 ))(
 )))
+---
+E -> (A)
+A -> CB
+B -> ;A | ε
+C -> x | E
+
+((x;x);x)
+(x;x)
+(x)
+))(())
+(x)x
+---
+E -> yGH
+H -> xH | ε
+G -> A | B
+A -> ε
+V -> A | bA
+B -> bV
+
+yxxxxxxx
+ybbxxxH
+xbba
+ybbb
+---
+S -> aSb | c | d
+
+aaaadbbbb
+aacbb
+aacb
+adcb
+---
+P -> xQRS
+Q -> yz | z
+R -> w | ε
+S -> y
+
+xyzwy
+xzy
+yzx
+wyxz
+---
+Q -> aAQ | b
+A -> a | bQA
+
+abbbbab
+aab
+b
+ababa
+baba
+---
+S -> aBCd
+B -> CB | b 
+C -> cc | ε
+
+accbccd
+abd
+abdc
+cba
+---
+S -> VS | ε
+V -> Di
+D -> T | ε
+T -> UP
+P -> >UP | ε
+U -> b | n | (T)
+
+(b>n)>bi
+n>bi
+n>bn
+nn><
+---
+S -> aSc | B | ε
+B -> bBc | ε
+
+abcc
+aaaccc
+acbacb
+bcacba
+---
+S -> aSb | c
+
+aaacbbb
+acb
+acbacba
+bacab
+---
+B -> Acd | Ac
+A -> aA | b
+
+abcd
+abc
+abcdbacc
+cbad
+---
+S -> F | (S+F)
+F -> a
+
+a
+((a+a)+a)
+()
+a+
++a
+---
+T -> VA
+A -> bTA | ε
+V -> cV | c
+
+ccbcbc
+c
+caba
+acba
+---
+T -> TbT | V
+V -> cV | c
+
+ccbc
+cbccbc
+cbacba
+cbabc
+---
+P -> S
+S -> L=R | R
+L -> *R | i
+R -> L
+
+*i=i
+*i
+*i==
+**i
+---
+S -> CC 
+C -> aC | d
+
+add
+dd
+addda
+ddadad

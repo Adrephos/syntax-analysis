@@ -168,3 +168,107 @@ A -> (S)AA | ()AA | ε
 S -> (S)A | A
 A -> SA | ε
 ```
+---
+> Es LL(1) y LR(0)
+```
+E -> (A)
+A -> CB
+B -> ;A | ε
+C -> x | E
+```
+---
+> Es LL(1) y LR(0)
+```
+E -> yGH
+H -> xH | ε
+G -> A | B
+A -> ε
+V -> A | bA
+B -> bV
+```
+---
+> Es LL(1) y LR(0)
+```
+S -> aSb | c | d
+```
+---
+> Es LL(1) y LR(0)
+```
+P -> xQRS
+Q -> yz | z
+R -> w | ε
+S -> y
+```
+---
+> Es LL(1) y LR(0)
+```
+Q -> aAQ | b
+A -> a | bQA
+```
+---
+> No es LL(1) ni LR(0)
+```
+S -> aBCd
+B -> CB | b 
+C -> cc | ε
+```
+---
+> Es LL(1) y LR(0)
+```
+S -> VS | ε
+V -> Di
+D -> T | ε
+T -> UP
+P -> >UP | ε
+U -> b | n | (T)
+```
+---
+> No es LL(1) ni LR(0)
+```
+S -> aSc | B | ε
+B -> bBc | ε
+```
+---
+> Es LL(1) y LR(0)
+```
+S -> aSb | c
+```
+---
+> No es LL(1) pero es LR(0)
+```
+B -> Acd | Ac
+A -> aA | b
+```
+---
+> Es LL(1) y LR(0)
+```
+S -> F | (S+F)
+F -> a
+```
+---
+> No es LL(1) ni LR(0)
+```
+T -> VA
+A -> bTA | ε
+V -> cV | c
+```
+---
+> No es LL(1) ni LR(0)
+```
+T -> TbT | V
+V -> cV | c
+```
+---
+> No es LL(1) ni LR(0)
+```
+P -> S
+S -> L=R | R
+L -> *R | i
+R -> L
+```
+---
+> Es LL(1) y LR(0)
+```
+S -> CC 
+C -> aC | d
+```
