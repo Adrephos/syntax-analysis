@@ -21,6 +21,10 @@ func main() {
 		src.Ll1Routine(grammar, strings)
 		src.Lr0Routine(grammar, strings)
 
+	} else if argsWithoutProg[0] == "-g" {
+
+		src.CreateGrammar()	
+
 	} else {
 		
 		src.FileInput(argsWithoutProg[0])

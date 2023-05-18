@@ -1,4 +1,4 @@
-package main
+package src
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func createGrammar() {
+func CreateGrammar() {
 	rand.Seed(time.Now().UnixNano())
 
 	letrasMayusculas := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
