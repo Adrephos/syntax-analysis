@@ -121,11 +121,7 @@ func generarCadenaAleatoria(simbolo byte, gramatica map[byte][]string) string {
 
 	for _, caracter := range produccion {
 		if caracter >= 'A' && caracter <= 'Z' {
-			if rand.Intn(2) == 0 {
-				cadena.WriteByte(byte(caracter))
-			} else {
-				cadena.WriteString(generarCadenaAleatoria(byte(caracter), gramatica))
-			}
+			cadena.WriteString(generarCadenaAleatoria(byte(caracter), gramatica))
 		} else if caracter != 'ε' {
 			cadena.WriteByte(byte(caracter))
 		}
