@@ -26,6 +26,7 @@ func NewState(g grammar, k sets.Set[argument]) state {
 
 	index := 0; finishFlag := true
 
+	// Calculates clossure
 	for finishFlag {
 		current := nTerminal[index]
 		if alreadyVisited.Has(current) {
