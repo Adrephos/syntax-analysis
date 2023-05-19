@@ -13,6 +13,9 @@ func CreateGrammar() {
 	letrasMayusculas := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	letrasMinusculas := "abcdefghijklmnopqrstuvwxyz"
 
+	// Crear un mapa para almacenar las producciones
+	gramatica := make(map[byte][]string)
+
 	// Generar un número aleatorio entre 1 y 3 para determinar la cantidad de letras
 	cantidad := rand.Intn(3) + 1
 
@@ -27,7 +30,22 @@ func CreateGrammar() {
 	// Generar las producciones utilizando las letras generadas y letras minúsculas
 	for _, letra := range letrasAleatorias {
 		producciones := generarProducciones(letra, letrasAleatorias, letrasMinusculas)
+		gramatica[letra] = producciones
 		fmt.Printf("%s -> %s\n", string(letra), strings.Join(producciones, " | "))
+	}
+
+	// Generar varias cadenas aleatorias no repetidas y de máximo 10 caracteres
+	numCadenas := 5
+	cadenasGeneradas := make(map[string]bool)
+
+	print("\n")
+	for len(cadenasGeneradas) < numCadenas {
+		inicial := letrasAleatorias[rand.Intn(len(letrasAleatorias))]
+		cadena := generarCadenaAleatoria(inicial, gramatica)
+		if len(cadena) <= 10 && !cadenasGeneradas[cadena] {
+			cadenasGeneradas[cadena] = true
+			fmt.Println(cadena)
+		}
 	}
 }
 
@@ -89,6 +107,29 @@ func generarProducciones(letra byte, letrasGeneradas []byte, letrasMinusculas st
 			producciones = append(producciones, "ε")
 		}
 	}
-
 	return producciones
+}
+
+func generarCadenaAleatoria(simbolo byte, gramatica map[byte][]string) string {
+	producciones, existe := gramatica[simbolo]
+	if !existe {
+		return string(simbolo)
+	}
+
+	produccion := producciones[rand.Intn(len(producciones))]
+	var cadena strings.Builder
+
+	for _, caracter := range produccion {
+		if caracter >= 'A' && caracter <= 'Z' {
+			if rand.Intn(2) == 0 {
+				cadena.WriteByte(byte(caracter))
+			} else {
+				cadena.WriteString(generarCadenaAleatoria(byte(caracter), gramatica))
+			}
+		} else if caracter != 'ε' {
+			cadena.WriteByte(byte(caracter))
+		}
+	}
+
+	return cadena.String()
 }
