@@ -45,5 +45,14 @@ Now you can execute the program:
 ```
 - File input
 ```
-./syntax-analysis "path-to-file"
+./syntax-analysis -f "path-to-file"
 ```
+- Generate grammar
+```
+./syntax-analysis -g
+```
+- Help command
+```
+./syntax-analysis -h
+```
+

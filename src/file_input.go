@@ -3,7 +3,6 @@ package src
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"strings"
 )
 
@@ -28,7 +27,8 @@ func FileInput(path string) {
 	f, err := ioutil.ReadFile(path)
 
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("Archivo no encontrado")
+		return
 	}
 
 	file := string(f)
