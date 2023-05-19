@@ -1,0 +1,19 @@
+Syntax Analysis - Help
+
+Syntax Analysis is a tool for parsing context-free languages using top-down and bottom-up parsing algorithms. It supports LL(1) and LR(0) grammars
+
+Usage
+
+To use this tool, you can run the following commands:
+
+- `./syntax-analysis`: Executes the program and allows for manual input of grammar rules and strings to parse
+- `./syntax-analysis -f <file>`: Parses the grammar rules and strings from a file specified by `<file>`
+- `./syntax-analysis -g`: Generates a random grammar for testing purposes
+- `./syntax-analysis -h`: Displays this help message
+
+Notes
+
+- The top-down parser is designed for LL(1) grammars
+- The bottom-up parser is designed for LR(0) grammars
+
+For more information and detailed instructions, please refer to the project's README or documentation
