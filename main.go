@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/Adrephos/syntax-analysis/src"
 )
@@ -26,7 +27,13 @@ func main() {
 
 	} else if argsWithoutProg[0] == "-g" {
 
-		src.CreateGrammar()	
+		numCadenas, err := strconv.Atoi(argsWithoutProg[1])
+
+		if err != nil {
+			fmt.Println("Introduzca un número")
+		}	else {
+			src.CreateGrammar(numCadenas)
+		}
 
 	} else if argsWithoutProg[0] == "-f"{
 		

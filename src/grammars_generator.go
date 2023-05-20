@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func CreateGrammar() {
+func CreateGrammar(numCadenas int) {
 	rand.Seed(time.Now().UnixNano())
 
 	letrasMayusculas := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -35,7 +35,6 @@ func CreateGrammar() {
 	}
 
 	// Generar varias cadenas aleatorias no repetidas y de máximo 10 caracteres
-	numCadenas := 5
 	cadenasGeneradas := make(map[string]bool)
 
 	print("\n")

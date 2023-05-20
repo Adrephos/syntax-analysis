@@ -8,7 +8,7 @@ To use this tool, you can run the following commands:
 
 - `./syntax-analysis`: Executes the program and allows for manual input of grammar rules and strings to parse
 - `./syntax-analysis -f <file>`: Parses the grammar rules and strings from a file specified by `<file>`
-- `./syntax-analysis -g`: Generates a random grammar for testing purposes
+- `./syntax-analysis -g <int>`: Generates a random grammar for testing purposes and a number of strings given by `<int>`
 - `./syntax-analysis -h`: Displays this help message
 
 Notes
