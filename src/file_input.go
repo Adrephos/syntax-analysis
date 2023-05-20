@@ -33,13 +33,13 @@ func FileInput(path string) {
 
 	file := string(f)
 
-	grammars_n_strings := strings.Split(file, "---\n")
+	grammars_n_strings := strings.Split(file, "---")
 
 	for i, input := range grammars_n_strings {
-		inputArr := strings.Split(input, "\n\n")
+		inputArr := strings.Split(input, "$")
 		noSpaceStrings := strings.TrimSpace(inputArr[1])
 
-		grammar := stringToGrammar(inputArr[0])
+		grammar := stringToGrammar(strings.TrimSpace(inputArr[0]))
 		stringsArr := strings.Split(noSpaceStrings, "\n")
 		
 		grammar.Print()
