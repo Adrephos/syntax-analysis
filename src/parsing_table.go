@@ -3,7 +3,6 @@ package src
 import (
 	"errors"
 	"fmt"
-	"log"
 )
 
 // Creates a parsing table for a LL1 grammar
@@ -19,7 +18,7 @@ func (g grammar) CreateTable() (map[string]map[string]string, error){
 				if g.T.Has(a) {
 					prod := fmt.Sprintf("%s->%s", symbol, production)
 					if getValue(table, symbol, a) != "" {
-						log.Fatal("Gramatica ambigua, fallo al crear la tabla")
+						return table, errors.New("Error: Gramatica ambigua, fallo al crear la tabla")
 					}
 					addCell(table, symbol, a, prod)
 				}
@@ -30,8 +29,7 @@ func (g grammar) CreateTable() (map[string]map[string]string, error){
 					if g.T.Has(b) || b == "$" {
 						prod := fmt.Sprintf("%s->%s", symbol, production)
 						if getValue(table, symbol, b) != "" {
-							err := errors.New("Error: Gramatica ambigua, fallo al crear la tabla")
-							return table, err
+							return table, errors.New("Error: Gramatica ambigua, fallo al crear la tabla")
 						}
 						addCell(table, symbol, b, prod)
 					}
