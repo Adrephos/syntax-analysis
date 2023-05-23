@@ -27,8 +27,10 @@ func CreateGrammar(numCadenas int) {
 		letrasAleatorias[i] = letra
 	}
 
+	var inicial byte 
 	// Generar las producciones utilizando las letras generadas y letras minúsculas
-	for _, letra := range letrasAleatorias {
+	for i, letra := range letrasAleatorias {
+		if i == 0 { inicial = letra }
 		producciones := generarProducciones(letra, letrasAleatorias, letrasMinusculas)
 		gramatica[letra] = producciones
 		fmt.Printf("%s -> %s\n", string(letra), strings.Join(producciones, " | "))
@@ -37,13 +39,20 @@ func CreateGrammar(numCadenas int) {
 	// Generar varias cadenas aleatorias no repetidas y de máximo 10 caracteres
 	cadenasGeneradas := make(map[string]bool)
 
-	print("\n")
+	fmt.Println()
+	count := 0
 	for len(cadenasGeneradas) < numCadenas {
-		inicial := letrasAleatorias[rand.Intn(len(letrasAleatorias))]
-		cadena := generarCadenaAleatoria(inicial, gramatica)
+		cadena := generarCadenaAleatoria(inicial, gramatica, 0)
+		if cadenasGeneradas[cadena] {
+			count++
+		}
 		if len(cadena) <= 10 && !cadenasGeneradas[cadena] {
 			cadenasGeneradas[cadena] = true
 			fmt.Println(cadena)
+		} 
+		if count >= 1000 {
+			fmt.Println("No es posible generar más cadenas de longitud 10")
+			break
 		}
 	}
 }
@@ -109,10 +118,10 @@ func generarProducciones(letra byte, letrasGeneradas []byte, letrasMinusculas st
 	return producciones
 }
 
-func generarCadenaAleatoria(simbolo byte, gramatica map[byte][]string) string {
+func generarCadenaAleatoria(simbolo byte, gramatica map[byte][]string, i int) string {
 	producciones, existe := gramatica[simbolo]
 	if !existe {
-		return string(simbolo)
+		return ""
 	}
 
 	produccion := producciones[rand.Intn(len(producciones))]
@@ -120,8 +129,10 @@ func generarCadenaAleatoria(simbolo byte, gramatica map[byte][]string) string {
 
 	for _, caracter := range produccion {
 		if caracter >= 'A' && caracter <= 'Z' {
-			cadena.WriteString(generarCadenaAleatoria(byte(caracter), gramatica))
-		} else if caracter != 'ε' {
+			if i <= 20 {
+				cadena.WriteString(generarCadenaAleatoria(byte(caracter), gramatica, i+1))
+			} 
+		} else if caracter != 'ε' && !(caracter >= 'A' && caracter <= 'Z') {
 			cadena.WriteByte(byte(caracter))
 		}
 	}
